@@ -9,7 +9,7 @@ class SeleniumBot:
     def __init__(self, driver_path=None):
         """Inicializa el WebDriver."""
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")  # Ejecutar sin interfaz gráfica
+        # options.add_argument("--headless")  # Ejecutar sin interfaz gráfica
         options.add_argument("--disable-dev-shm-usage")  # Evita problemas de memoria en Docker
         self.driver = webdriver.Chrome(options=options) if driver_path is None else webdriver.Chrome(executable_path=driver_path, options=options)
 

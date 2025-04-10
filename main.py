@@ -217,6 +217,20 @@ class RpaBot:
         boton_close = self.bot.esperar_elemento("input.error_formulario_boton", By.CSS_SELECTOR, tiempo_espera=1, max_intentos=6)
         if boton_close:
             print("Regresando a la tabla estado.")
+            # Inyectar CSS para modificar el z-index
+            script_css = """
+                            var elementoDatosCandidato = document.querySelector('.datos_candidato');
+                            if (elementoDatosCandidato) {
+                                elementoDatosCandidato.style.zIndex = '0';
+                            }
+                            var botonCerrar = document.querySelector('input.error_formulario_boton');
+                            if (botonCerrar) {
+                                botonCerrar.style.zIndex = '1';
+                                botonCerrar.style.position = 'relative'; // Importante para que z-index funcione
+                            }
+                        """
+            self.bot.driver.execute_script(script_css)
+            time.sleep(1)  # Dar tiempo para que los estilos se apliquen
             boton_close.click()
 
 
